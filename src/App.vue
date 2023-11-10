@@ -7,19 +7,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import AddExpense from './components/AddExpense.vue';
 import Balance from './components/Balance.vue'
 import History from './components/History.vue';
 
-export default {
-  name: 'App',
-  components: {
-    Balance,
-    History,
-    AddExpense
-  }
-}
 </script>
 
 <style>
@@ -32,9 +24,22 @@ export default {
   margin-top: 60px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 
 .container {
   max-width: 500px;
   margin: 0 auto;
+  padding: 0 0 40px 0;
 }
 </style>

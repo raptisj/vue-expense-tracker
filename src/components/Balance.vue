@@ -1,27 +1,28 @@
 <template>
     <div class="balance">
-        <p>Your balance<span class="balance-amount">$1000</span></p>
+        <p>Your balance<span class="balance-amount">$</span></p>
     </div>
 
     <div class="amounts">
         <div class="amounts-each">
             <h3>income</h3>
-            <p>1000</p>
+            <p :style="{ color: 'green' }">+{{ calculateIncome(transactions, 'income') }}</p>
         </div>
         <div class="amounts-each">
             <h3>expenses</h3>
-            <p>400</p>
+            <p :style="{ color: 'red' }">-{{ calculateIncome(transactions, 'expense') }}</p>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'Balance',
-    props: {
-        msg: String
-    }
-}
+<script setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { calculateIncome } from '../utils'
+
+const store = useStore()
+const transactions = computed(() => store.getters.getTransactions)
+
 </script>
 
 <style scoped>
@@ -56,7 +57,6 @@ export default {
 .amounts-each>p {
     margin: 0;
     font-size: 22px;
-    color: green;
     font-weight: 500;
 }
 </style>

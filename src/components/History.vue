@@ -2,27 +2,25 @@
     <div class="section">
         <h2 class="section-title">History</h2>
 
-        <div class="expense-list">
-            <div class="expense">
-                <p>salary</p>
-                <p>+2000</p>
-            </div>
-            <div class="expense">
-                <p>lunch</p>
-                <p>-20</p>
-            </div>
-            <div class="expense">
-                <p>buy a tv</p>
-                <p>-200</p>
+        <p v-show="!transactions.length">Oh no! There are no transactions here.</p>
+        <div class="transaction-list">
+            <div class="transaction" v-for="transaction in transactions" :key="transaction.subject"
+                :style="{ borderRight: `6px solid ${transaction.type === 'expense' ? 'red' : 'green'}` }">
+                <p>{{ transaction.subject }}</p>
+                <p>{{ transaction.amount }} $</p>
             </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'History',
-}
+<script setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+const transactions = computed(() => store.getters.getTransactions)
+
+
 </script>
 
 <style scoped>
@@ -34,12 +32,12 @@ export default {
     text-align: left;
 }
 
-.expense-list {
+.transaction-list {
     display: grid;
     gap: 8px
 }
 
-.expense {
+.transaction {
     background: #f7f7f7;
     border-radius: 5px;
     min-height: 48px;
@@ -49,11 +47,11 @@ export default {
     padding: 0 16px;
 }
 
-.expense p {
+.transaction p {
     margin: 0;
 }
 
-.expense p:nth-child(2) {
+.transaction p:nth-child(2) {
     font-weight: 600;
 }
 </style>
