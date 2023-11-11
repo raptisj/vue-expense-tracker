@@ -1,16 +1,16 @@
 <template>
     <div class="balance">
-        <p>Your balance<span class="balance-amount">$</span></p>
+        <p>Your balance is<span class="balance-amount">${{ incomeTotal - expenseTotal }}</span></p>
     </div>
 
     <div class="amounts">
         <div class="amounts-each">
             <h3>income</h3>
-            <p :style="{ color: 'green' }">+{{ calculateIncome(transactions, 'income') }}</p>
+            <p :style="{ color: 'green' }">+{{ incomeTotal }}</p>
         </div>
         <div class="amounts-each">
             <h3>expenses</h3>
-            <p :style="{ color: 'red' }">-{{ calculateIncome(transactions, 'expense') }}</p>
+            <p :style="{ color: 'red' }">-{{ expenseTotal }}</p>
         </div>
     </div>
 </template>
@@ -18,10 +18,11 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { calculateIncome } from '../utils'
 
 const store = useStore()
-const transactions = computed(() => store.getters.getTransactions)
+const incomeTotal = computed(() => store.getters.getIncomeTotal)
+const expenseTotal = computed(() => store.getters.getExpenseTotal)
+
 
 </script>
 

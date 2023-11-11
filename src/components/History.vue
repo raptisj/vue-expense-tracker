@@ -3,11 +3,15 @@
         <h2 class="section-title">History</h2>
 
         <p v-show="!transactions.length">Oh no! There are no transactions here.</p>
+
         <div class="transaction-list">
-            <div class="transaction" v-for="transaction in transactions" :key="transaction.subject"
+            <div class="transaction" v-for="transaction in transactions" :key="transaction.id"
                 :style="{ borderRight: `6px solid ${transaction.type === 'expense' ? 'red' : 'green'}` }">
                 <p>{{ transaction.subject }}</p>
+                <v-icon icon="mdi-delete-forever-outline" class="delete-btn"
+                    @click="removeTransation(transaction.id)"></v-icon>
                 <p>{{ transaction.amount }} $</p>
+
             </div>
         </div>
     </div>
@@ -20,7 +24,9 @@ import { useStore } from 'vuex'
 const store = useStore()
 const transactions = computed(() => store.getters.getTransactions)
 
-
+function removeTransation(id) {
+    store.commit('removeTransaction', id)
+}
 </script>
 
 <style scoped>
@@ -45,6 +51,7 @@ const transactions = computed(() => store.getters.getTransactions)
     justify-content: space-between;
     align-items: center;
     padding: 0 16px;
+    position: relative;
 }
 
 .transaction p {
@@ -53,5 +60,17 @@ const transactions = computed(() => store.getters.getTransactions)
 
 .transaction p:nth-child(2) {
     font-weight: 600;
+}
+
+.delete-btn {
+    display: none;
+}
+
+.transaction:hover .delete-btn {
+    display: block;
+}
+
+.transaction:hover p:nth-child(1) {
+    display: none;
 }
 </style>

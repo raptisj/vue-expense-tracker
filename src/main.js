@@ -6,6 +6,7 @@ import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { createStore } from "vuex";
+import { calculateTotal } from "./utils";
 
 const store = createStore({
   state: {
@@ -15,10 +16,21 @@ const store = createStore({
     addTransaction(state, transaction) {
       state.transactions.push(transaction);
     },
+    removeTransaction(state, transactionId) {
+      state.transactions = state.transactions.filter(
+        (t) => t.id !== transactionId
+      );
+    },
   },
   getters: {
     getTransactions(state) {
       return state.transactions;
+    },
+    getIncomeTotal(state) {
+      return calculateTotal(state.transactions, "income");
+    },
+    getExpenseTotal(state) {
+      return calculateTotal(state.transactions, "expense");
     },
   },
 });
