@@ -1,24 +1,6 @@
 # vue-expense-tracker
 
-## Project setup
-```
-npm install
-```
+A simple expense tracker. This app was created for learning purposes and to get familiar with the Vue framework.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Technologies used: Vue 3, Vuetify, Vuex.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
